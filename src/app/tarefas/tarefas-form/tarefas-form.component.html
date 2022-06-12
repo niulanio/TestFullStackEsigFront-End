@@ -1,0 +1,96 @@
+<h1 class="mt-4">Tarefas</h1>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-success alert-dismissible" role="alert" *ngIf="success == true">Tarefa
+                salva/atualizada com sucesso</div>
+        </div>
+        <div class="col-md-12">
+            <div class="alert alert-danger alert-dismissible" role="alert"  *ngFor="let erro of erros">
+                {{erro}}</div>
+        </div>
+    </div>
+    <div class="card">
+        <h6 class="card-header">Cadastro de Tarefas</h6>
+        <div class="card-body">
+            <form #TarefasForm="ngForm" (ngSubmit)="onSubmit()">
+                <div class="row" *ngIf="tarefa.id">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>ID:</label>
+                            <input type="text" class="form-control" disabled="true" [ngModel]="tarefa.id" name="id" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="FormControlText">Titulo:*</label>
+                            <input type="text" class="form-control" id="FormControlText" [(ngModel)]="tarefa.titulo"
+                                name="titulo" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Descrição*</label>
+                            <textarea class="form-control" id="FormControlTextarea" rows="3"
+                                [(ngModel)]="tarefa.descricao" name="descricao"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Responsável:</label>
+                        <select class="form-control" [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="tarefa.responsavel">
+                            <option value="">Selecione um responsável</option>
+                            <option *ngFor="let resp of responsaveis" [ngValue]="resp">
+                                {{resp.nome}}
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label>Prioridade:</label>
+                        <select class="custom-select" [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="tarefa.prioridade">
+                            <option>Selecione uma opção</option>
+                            <option [ngValue]=1>Alta</option>
+                            <option [ngValue]=2>Média</option>
+                            <option [ngValue]=3>Baixa</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Data limite para conclusão</label>
+                        <input type="date" class="form-control" [(ngModel)]="tarefa.dataFinal" name="dataFinal" />
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-success" *ngIf="!tarefa.id">
+                        <i class="fa-solid fa-floppy-disk"></i>
+                        Cadastrar
+                    </button>
+                    <button type="submit" class="btn btn-primary" *ngIf="tarefa.id">
+                        <i class="fa-solid fa-arrows-rotate"></i>
+                        Atualizar
+                    </button>
+                    <button type="button" routerLink="/tarefas-list" class="btn btn-danger ml-1">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        Voltar
+                    </button>
+                </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+</div>

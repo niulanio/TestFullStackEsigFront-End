@@ -1,0 +1,59 @@
+<h1 class="mt-4">Responsável</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">{{responsavel.id ? 'Atualizar Responsável' : 'Cadastro de Responsável' }}</li>
+</ol>
+
+<div class="container">
+    <form #responsavelForm="ngForm" (ngSubmit)="onSubmit()">
+        
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-success alert-dismissible" role="alert" *ngIf="success == true">Responsável salvo/atualizado com sucesso</div>
+            </div>
+            <div class="col-md-12">
+                <div class="alert alert-danger alert-dismissible" role="alert" *ngFor="let erro of erros">
+                    {{erro}}
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="responsavel.id">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>ID:</label>
+                    <input type="text" class="form-control" disabled="true" [ngModel]="responsavel.id" name="id"/>
+                </div>
+            </div>         
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>Nome:*</label>
+                    <input type="text" class="form-control" [(ngModel)]="responsavel.nome" name="nome" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                
+                <button type="submit" class="btn btn-success" *ngIf="!responsavel.id">
+                    <i class="fa-solid fa-floppy-disk"></i>
+                    Salvar
+                </button>
+                <button type="submit" class="btn btn-primary" *ngIf="responsavel.id">
+                    <i class="fa-solid fa-arrows-rotate"></i>
+                    Atualizar
+                </button>
+
+                <button type="button" (click)="voltar()" class="btn btn-danger ml-1">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Voltar
+                </button>
+               
+            </div>
+                
+                
+               
+
+        </div>
+    </form>
+</div>

@@ -1,0 +1,127 @@
+<h1 class="mt-4">Tarefas</h1>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-success alert-dismissible" role="alert" *ngIf="messageSuccess">{{messageSuccess}}
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="alert alert-danger alert-dismissible" role="alert" *ngIf="messageError">{{messageError}}</div>
+        </div>
+    </div>
+    <div class="card">
+        <h6 class="card-header">Listagem de Tarefas</h6>
+        <div class="card-body">
+            <form #TarefasList="ngForm" (ngSubmit)="onSubmit()">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="FormControlText">Titulo:*</label>
+                            <input type="text" class="form-control" id="FormControlText" [(ngModel)]="tarefa.titulo"
+                                name="titulo" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Responsável:</label>
+                        <select class="form-control" [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="tarefa.responsavel">
+                            <option value="">Selecione um responsável</option>
+                            <option *ngFor="let resp of responsaveis" [ngValue]="resp">
+                                {{resp.nome}}
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label>Prioridade:</label>
+                        <select class="custom-select" [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="tarefa.prioridade">
+                            <option value="">Selecione a prioridade</option>
+                            <option [ngValue]=1>Alta</option>
+                            <option [ngValue]=2>Média</option>
+                            <option [ngValue]=3>Baixa</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Status:</label>
+                        <select class="custom-select" [ngModelOptions]="{standalone: true}" [(ngModel)]="tarefa.status">
+                            <option value="">Selecione o status</option>
+                            <option [ngValue]=1>Em andamento</option>
+                            <option [ngValue]=2>Concluída</option>
+
+                        </select>
+                    </div>
+                    <div class="col-md-3 mt-4">
+                        <label></label>
+                        <button type="submit" class="btn btn-primary mt-2">Buscar</button>
+                    </div>
+                </div>
+                <br />
+            </form>
+        </div>
+        <div class="col-md-12">
+            <table class="table table-condensed table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Titulo</th>
+                        <th>Responsável</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let trf of tarefas">
+                        <td>{{trf.id}}</td>
+                        <td>{{trf.titulo}}</td>
+                        <td>{{trf.responsavel.nome}}</td>
+                        <td>
+                            <button class="btn btn-primary" routerLink="/tarefas-form/{{trf.id}}">Editar</button>
+                            <button class="btn btn-danger " (click)="preparaDelete(trf)" data-toggle="modal"
+                                data-target="#delete">Exluir</button>
+                            <button class="btn btn-success" (click)="preparaConcluirTarefa(trf)" data-toggle="modal"
+                                data-target="#update" *ngIf="trf.status!=2">Concluir</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id="update" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Confirmação</h4>
+                </div>
+                <div class="modal-body" *ngIf="tarefaSelect">
+                    Realmente deseja concluir a tarefa "{{tarefaSelect.titulo}}"?
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success" (click)="concluirTarefa()" data-dismiss="modal">Confirmar</button>
+                    <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="delete" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Confirmação</h4>
+                </div>
+                <div class="modal-body" *ngIf="tarefaSelect">
+                    Realmente deseja deletar a Tarefa "{{tarefaSelect.titulo}}"?
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success" (click)="deleteTarefa()" data-dismiss="modal">Confirmar</button>
+                    <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

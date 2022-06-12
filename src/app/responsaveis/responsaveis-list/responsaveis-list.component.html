@@ -1,0 +1,61 @@
+<h1 class="mt-4">Responsável</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">Consulta Responsável</li>
+</ol>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-success alert-dismissible" role="alert" *ngIf="messageSuccess">{{messageSuccess}}</div>
+        </div>
+        <div class="col-md-12">
+            <div class="alert alert-danger alert-dismissible" role="alert" *ngIf="messageError">{{messageError}}</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <button class="btn btn-warning" (click)="novoCadastro()">
+                <i class="fa-solid fa-plus"></i>
+                Novo
+            </button>
+        </div>
+    </div>
+    <br />
+    <div class="col-md-12">
+        <table class="table table-condensed table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let responsavel of responsaveis">
+                    <td>{{responsavel.id}}</td>
+                    <td>{{responsavel.nome}}</td>
+                    <td>
+                        <button class="btn btn-primary"><i class="fa-solid fa-pen-to-square"routerLink="/responsaveis-form/{{responsavel.id}}"></i></button>
+                        <button class="btn btn-danger ml-1" (click)="prepararDelete(responsavel)" data-toggle="modal" data-target="#delete"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="delete" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Confirmação</h4>
+                </div>
+                <div class="modal-body" *ngIf="responsavelSelect">
+                    Realmente deseja deletar o responsável {{responsavelSelect.nome}}?
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success" (click)="deleteResponsavel()" data-dismiss="modal">Confirmar</button>
+                    <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

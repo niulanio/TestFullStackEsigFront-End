@@ -3,7 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  urlBase : 'http://localhost:8080',
+  cliendId: 'controle-tarefas-app',
+  clientSecret:'Esig',
+  tokenUrl: '/oauth/token'
 };
 
 /*
