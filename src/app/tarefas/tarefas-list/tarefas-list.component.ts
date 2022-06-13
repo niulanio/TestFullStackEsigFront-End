@@ -53,7 +53,8 @@ export class TarefasListComponent implements OnInit {
     this.tarefaSelect = tarefa
   }
   concluirTarefa(){
-    this.tarefaSelect.status = 2
+    this.tarefaSelect.status = 1
+    this.tarefaSelect.prioridade = this.tarefaSelect.prioridade - 1
     this.tarefaService.update(this.tarefaSelect).subscribe(
      response =>{ this.messageSuccess="Tarefa concluída com sucesso!"
         this.ngOnInit();

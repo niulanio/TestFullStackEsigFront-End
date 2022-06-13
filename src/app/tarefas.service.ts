@@ -15,10 +15,14 @@ export class TarefasService {
 
 
   save(tarefa: Tarefa): Observable<Tarefa> {
+
+
     let date = new Date(tarefa.dataFinal)
     let formattedDate = date.toLocaleDateString('pt-BR', { timeZone: 'UTC' });
     tarefa.dataFinal = formattedDate
-    tarefa.status = 1
+    tarefa.status = 0
+    console.log(tarefa)
+
 
     return this.http.post<Tarefa>(this.baseUrl, tarefa);
   }

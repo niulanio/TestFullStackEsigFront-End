@@ -56,11 +56,13 @@ export class TarefasFormComponent implements OnInit {
         }
       )
     } else {
-
+      
       this.tarefaService.save(this.tarefa).subscribe(
         response => {
           this.success = true;
           this.tarefa = response
+          this.tarefa.prioridade = this.tarefa.prioridade - 1
+  
         }, errorResponse => {
           console.log(errorResponse)
           this.erros =errorResponse.error.errors;
@@ -75,6 +77,7 @@ export class TarefasFormComponent implements OnInit {
       this.tarefaService.findById(id).subscribe(
         response => {
           this.tarefa = response
+          this.tarefa.prioridade = this.tarefa.prioridade - 1
         },
         error => {
           console.log("Aconteceu um erro")
